@@ -10,19 +10,9 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  "https://frontend-nu-wine.vercel.app"
-]
 // Correct CORS Setup: Allow credentials and specify origin
 app.use(cors({
-  origin: function (origin,callback) {
-    if(!origin || allowedOrigins.includes(origin)){
-      callback(null, true)
-    }else{
-      callback(new Error("Not Allowed by CORS"));
-    }
-  },  // Allow React app origin
+  origin: 'https://frontend-nu-wine.vercel.app',  // Allow React app origin
   credentials: true,                // Allow cookies/auth headers
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',  // Ensure the proper HTTP methods
 }));

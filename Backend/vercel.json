@@ -7,8 +7,16 @@
       }
     ],
     "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "server.js"
+          },
       {
         "src": "/api/users/(.*)",
+        "dest": "server.js"
+      },
+      {
+        "src": "/api/analytics/(.*)",
         "dest": "server.js"
       }
     ]
