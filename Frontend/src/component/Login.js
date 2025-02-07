@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://backend-theta-plum-15.vercel.app/api/users/login',
+        'https://backend-theta-plum-15.vercel.app/api/users/login',
         { email, password },
         { withCredentials: true }
       );
