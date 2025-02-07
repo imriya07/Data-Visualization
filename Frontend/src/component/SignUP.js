@@ -16,7 +16,7 @@ const SignUP = () => {
 
   const handleSignup = (e) =>{
     e.preventDefault();
-    axios.post("http://localhost:5000/api/users/register", { name, email, password })
+    axios.post("http://backend-theta-plum-15.vercel.app/api/users/register", { name, email, password })
     .then(result =>{
       if(result.status === 201){
         console.log("User Created Succefully");

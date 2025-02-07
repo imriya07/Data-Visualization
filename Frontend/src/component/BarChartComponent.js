@@ -26,7 +26,7 @@ const BarChartComponent = ({ filters }) => {
       try {
         const { age, gender, startDate, endDate } = filters;
         const response = await axios.get(
-          "http://localhost:5000/api/analytics",
+          "http://backend-theta-plum-15.vercel.app/api/analytics",
           {
             params: { age, gender, startDate, endDate },
             withCredentials: true,
@@ -68,7 +68,7 @@ const BarChartComponent = ({ filters }) => {
       try {
         const { age, gender, startDate, endDate } = filters; // Include global filters
         const response = await axios.get(
-          "http://localhost:5000/api/analytics/feature",
+          "http://backend-theta-plum-15.vercel.app/api/analytics/feature",
           {
             params: { feature: data.name, age, gender, startDate, endDate },
             withCredentials: true,
