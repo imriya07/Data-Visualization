@@ -15,14 +15,6 @@ const Home = () => {
               <Card.Text className="text-muted unlocak">
                 Unlock powerful data insights by exploring your dashboard. Please sign up or log in to access interactive data visualizations.
               </Card.Text>
-              {/* <div className="d-flex justify-content-center gap-3 mt-4">
-                <Button variant="success" href="/login">
-                  Login
-                </Button>
-                <Button variant="warning" href="/signup">
-                  Sign Up
-                </Button>
-              </div> */}
             </Card.Body>
           </Card>
         </Col>

@@ -4,33 +4,38 @@ import axios from 'axios';
  
 const Login = () => { 
   const heading = { fontSize: "2rem", fontWeight: "600" }; 
-  const paperStyle = { padding: "2rem", margin: "100px auto", borderRadius: "1rem", boxShadow: "7px 7px 7px" }; 
+  const paperStyle = { padding: "2rem", margin: "60px auto", borderRadius: "1rem", boxShadow: "7px 7px 7px" }; 
   const row = { display: "flex", marginTop: "2rem" }; 
   const btnStyle = { marginTop: "2rem", fontSize: "1.2rem", backgroundColor: "#488A99", borderRadius: "0.5rem" }; 
  
   const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState(''); 
  
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        'https://backend-theta-plum-15.vercel.app/api/users/login',
-        { email, password },
-        { withCredentials: true }
-      );
-      if (response.status === 200) {
-        console.log("Login Successful");
-        // Replace the current entry with the dashboard
-        window.location.replace('/dashboard');
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        alert('Invalid credentials. Please try again.');
-      } else {
-        console.error(error);
-      }
-    }
+  const handleLogin = async (e) => { 
+    e.preventDefault(); 
+    try { 
+      const response = await axios.post( 
+        'https://backend-theta-plum-15.vercel.app/api/users/login', 
+        { email, password }, 
+        { withCredentials: true } 
+      ); 
+      if (response.status === 200) { 
+        console.log("Login Successful"); 
+  
+        // Get current URL filters
+        const currentParams = new URLSearchParams(window.location.search);
+        const queryString = currentParams.toString(); // Preserve filters
+  
+        // Redirect to dashboard with filters
+        window.location.replace(`/dashboard${queryString ? `?${queryString}` : ""}`);
+      } 
+    } catch (error) { 
+      if (error.response && error.response.status === 401) { 
+        alert('Invalid credentials. Please try again.'); 
+      } else { 
+        console.error(error); 
+      } 
+    } 
   };
   
  

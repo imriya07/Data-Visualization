@@ -96,7 +96,7 @@ const LineChart = ({ feature, data }) => {
     return <div>No data available for this feature</div>;
   }
 
-  return <Line data={lineData} options={options} height={185} />;
+  return <Line data={lineData} options={options} height={190} />;
 };
 
 export default LineChart;

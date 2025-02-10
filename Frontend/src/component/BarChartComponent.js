@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "../index.css";
 import {
   BarChart,
   Bar,
@@ -16,8 +17,8 @@ const BarChartComponent = ({ filters }) => {
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedFeature, setSelectedFeature] = useState(null); // State for selected feature
-  const [featureData, setFeatureData] = useState([]); // State to store data for the selected feature
+  const [selectedFeature, setSelectedFeature] = useState(null);
+  const [featureData, setFeatureData] = useState([]);
 
   useEffect(() => {
     const fetchAnalyticsData = async () => {
@@ -34,12 +35,7 @@ const BarChartComponent = ({ filters }) => {
         );
 
         const aggregatedData = response.data.reduce((acc, item) => {
-          const feature = item.feature;
-          if (acc[feature]) {
-            acc[feature] += item.timeSpent;
-          } else {
-            acc[feature] = item.timeSpent;
-          }
+          acc[item.feature] = (acc[item.feature] || 0) + item.timeSpent;
           return acc;
         }, {});
 
@@ -62,11 +58,9 @@ const BarChartComponent = ({ filters }) => {
 
   const handleBarClick = async (data) => {
     if (data && data.name) {
-      setSelectedFeature(data.name); // Set the selected feature
-  
-      // Fetch detailed data for the selected feature with filters
+      setSelectedFeature(data.name);
       try {
-        const { age, gender, startDate, endDate } = filters; // Include global filters
+        const { age, gender, startDate, endDate } = filters;
         const response = await axios.get(
           "https://backend-theta-plum-15.vercel.app/api/analytics/feature",
           {
@@ -74,51 +68,42 @@ const BarChartComponent = ({ filters }) => {
             withCredentials: true,
           }
         );
-        const featureDetails = response.data;
-        setFeatureData(featureDetails); // Set the filtered data for the LineChart
+        setFeatureData(response.data);
       } catch (err) {
         console.error("Error fetching feature data", err);
         setError(err);
       }
-    } else {
-      console.error("Invalid data on bar click", data);
     }
   };
-  
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error fetching data: {error.message}</div>;
-  }
-
-  if (chartData.length === 0) {
-    return <div>No data available</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error fetching data: {error.message}</div>;
+  if (chartData.length === 0) return <div>No data available</div>;
 
   return (
     <div className="row">
-      <div className="col-md-6 mt-3">
+      {/* Bar Chart */}
+      <div className="col-md-6 col-12 mt-3">
         <ResponsiveContainer width="100%" height={350}>
           <BarChart
             data={chartData}
-            layout="vertical" // Set layout to vertical for a horizontal bar chart
-            onClick={(e) => handleBarClick(e.activePayload[0].payload)}
+            layout="vertical"
+            onClick={(e) => e.activePayload && handleBarClick(e.activePayload[0].payload)}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" /> {/* X-axis for numerical values */}
-            <YAxis type="category" dataKey="name" /> {/* Y-axis for feature names */}
+            <XAxis type="number" />
+            <YAxis type="category" dataKey="name" />
             <Tooltip />
             <Legend />
             <Bar dataKey="uv" fill="#0c7399" />
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="col-md-6 mt-3">
+
+      {/* Line Chart (Same height & width as BarChart) */}
+      <div className="col-md-6 col-12 line">
         {selectedFeature && (
-          <ResponsiveContainer width="100%">
+          <ResponsiveContainer>
             <LineChart feature={selectedFeature} data={featureData} />
           </ResponsiveContainer>
         )}
