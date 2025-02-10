@@ -13,6 +13,7 @@ app.use(cookieParser());
 // Correct CORS Setup: Allow credentials and specify origin
 app.use(cors({
   origin: 'https://frontend-nu-wine.vercel.app',  // Allow React app origin
+  // origin: 'http://localhost:3000',  // Allow local React app
   credentials: true,                // Allow cookies/auth headers
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',  // Ensure the proper HTTP methods
 }));
@@ -30,6 +31,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/analytics', analyticsRoutes);
 
 const PORT = process.env.PORT || 8000;
+// app.listen(PORT,() =>{
+//   console.log(`server running ${PORT}`);
+// })
 if(process.env.NODE_ENV !== "production"){
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }

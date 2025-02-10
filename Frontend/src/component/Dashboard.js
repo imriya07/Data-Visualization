@@ -95,7 +95,7 @@ export default function DashboardLayoutSidebarCollapsed() {
                 <select className="form-select" id="age" value={filters.age} onChange={handleFilterChange}>
                   <option value="">Select Age</option>
                   <option value="15-25">15-25</option>
-                  <option value=">25">>25</option>
+                  <option value=">25">{'>25'}</option>
                 </select>
               </div>
               <div className="col-md-2">
