@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Grid, Paper, TextField, Typography, Button } from "@mui/material";
+import { Grid, Paper, TextField, Typography, Button, IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +13,7 @@ const SignUP = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -111,7 +113,16 @@ const SignUP = () => {
               sx={{ label: { fontWeight: "500", fontSize: "1.2rem" } }}
               style={row}
               label="Enter Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <Button type="submit" variant="contained" style={btnStyle} disabled={!!emailError || !!passwordError}>
               SignUP
