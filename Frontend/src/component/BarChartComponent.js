@@ -62,7 +62,7 @@ const BarChartComponent = ({ filters }) => {
       try {
         const { age, gender, startDate, endDate } = filters;
         const response = await axios.get(
-          "https://backend-theta-plum-15.vercel.app/analytics/feature",
+          "https://backend-theta-plum-15.vercel.app/api/analytics/feature",
           {
             params: { feature: data.name, age, gender, startDate, endDate },
             withCredentials: true,

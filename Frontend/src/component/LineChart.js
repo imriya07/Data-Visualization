@@ -9,9 +9,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import zoomPlugin from "chartjs-plugin-zoom"; // Import zoom plugin
+import zoomPlugin from "chartjs-plugin-zoom"; 
 
-// Registering the necessary elements for the chart
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -19,7 +18,7 @@ ChartJS.register(
   PointElement,
   Tooltip,
   Legend,
-  zoomPlugin // Register zoom plugin
+  zoomPlugin 
 );
 
 const LineChart = ({ feature, data }) => {
@@ -29,7 +28,7 @@ const LineChart = ({ feature, data }) => {
   useEffect(() => {
     const fetchFeatureData = async () => {
       try {
-        if (data && data.length > 0) {
+        if (data && data.length > 0) { 
           setTimeTrendData(data.map((item) => item.timeSpent));
           setLabels(data.map((item) => item.startDate));
         } else {
@@ -41,7 +40,7 @@ const LineChart = ({ feature, data }) => {
     };
   
     fetchFeatureData();
-  }, [feature, data]); // Trigger this effect whenever feature or data changes
+  }, [feature, data]); //  this effect will triger whenever feature or data changes
   
 
   const lineData = {
@@ -77,16 +76,16 @@ const LineChart = ({ feature, data }) => {
       zoom: {
         zoom: {
           wheel: {
-            enabled: true, // Enable zooming with the mouse wheel
+            enabled: true, 
           },
           pinch: {
-            enabled: true, // Enable zooming with pinch gestures
+            enabled: true,
           },
-          mode: "x", // Allow zooming on the x-axis
+          mode: "x", 
         },
         pan: {
-          enabled: true, // Enable panning
-          mode: "x", // Allow panning on the x-axis
+          enabled: true, 
+          mode: "x", 
         },
       },
     },
@@ -96,7 +95,7 @@ const LineChart = ({ feature, data }) => {
     return <div>No data available for this feature</div>;
   }
 
-  return <Line data={lineData} options={options} height={190} />;
+  return <Line data={lineData} options={options} height={185} />;
 };
 
 export default LineChart;
